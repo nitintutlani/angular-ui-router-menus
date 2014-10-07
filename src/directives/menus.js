@@ -1,4 +1,3 @@
-/* jshint undef: false */ /* for menus */
 menus.directive('menus', [
   '$compile',
   '$rootScope',

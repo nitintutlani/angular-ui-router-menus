@@ -2,7 +2,7 @@
   "name": "angular-ui-router-menus",
   "version": "0.1.0",
   "homepage": "https://github.com/nitintutlani/angular-ui-router-menus",
-  "description": "angular-ui-router state for menu, nav, navbar, tab and other navigation tools",
+  "description": "angular-ui-router state derived menu, nav, navbar, tab and other navigation tools",
   "repository": {
     "type": "git",
     "url": "https://github.com/nitintutlani/angular-ui-router-menus.git"

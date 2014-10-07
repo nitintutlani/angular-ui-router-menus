@@ -47,4 +47,3 @@ menus.provider('menus', function MenusProvider() {
   ];
 
 });
-/* jshint undef: false */ /* for menus */
