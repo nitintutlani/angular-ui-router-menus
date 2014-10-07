@@ -1,0 +1,5 @@
+.idea
+node_modules
+demo/bower_components
+npm-debug.log
+references
