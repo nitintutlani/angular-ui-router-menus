@@ -1,8 +1,9 @@
+/* jshint undef: false */ /* for menus */
 menus.directive('menus', [
   '$compile',
   '$rootScope',
-  'breadcrumbs',
-  function($compile, $rootScope, breadcrumbs) {
+  'menus',
+  function($compile, $rootScope, menus) {
     'use strict';
 
     return {

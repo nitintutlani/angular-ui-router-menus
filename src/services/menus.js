@@ -32,7 +32,8 @@ menus.provider('menus', function MenusProvider() {
   // Public Interface
 
   this.compileWith = function(customCompiler) {
-    return compile = customCompiler || defaultCompiler;
+    var compile = customCompiler || defaultCompiler;
+    return compile;
   };
 
   this.$get = [
@@ -46,3 +47,4 @@ menus.provider('menus', function MenusProvider() {
   ];
 
 });
+/* jshint undef: false */ /* for menus */

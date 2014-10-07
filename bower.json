@@ -9,11 +9,11 @@
     "node_modules",
     "bower_components",
     "src",
+    "config",
+    "files.js",
     "test",
     "e2e",
-    "examples",
-    "gulpfile.js",
-    "karma.conf.js",
+    "Gruntfile.js",
     "package.json"
   ],
   "keywords": [
