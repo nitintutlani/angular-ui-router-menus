@@ -9,6 +9,8 @@
     "node_modules",
     "bower_components",
     "src",
+    "build",
+    "examples",
     "config",
     "files.js",
     "test",

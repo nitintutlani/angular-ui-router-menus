@@ -1,31 +1,37 @@
-menus.provider('menus', function MenusProvider() {
-  'use strict';
+uiRouterMenusModule.service('menus', ['$state', function($state) {
 
   var compile;
 
   function defaultCompiler(state) {
     if(!state.menu) { return null; }
 
+    var menu;
     if(typeof state.menu === 'string') {
-      state.menu = {
-        name: state.menu
+      menu = {
+        name: state.menu,
+        state: state
       };
     } else {
-      return state.menu;
+      menu = state.menu;
+      menu.state = state;
     }
+    //check name
+    //check css classes
+    //check other imp values
+    return menu;
   }
 
   compile = defaultCompiler;
 
   function reload($state, menus) {
-    var menu;
-
     menus.length = 0;
 
+    var menu;
     angular.forEach($state.get(), function(state) {
-      menu = compile(state); //?state.self
-      if(menu) { menus.unshift(menu); }
+      menu = compile(state);
+      if(menu) { menus.push(menu); }
     });
+
     return menus;
   }
 
@@ -36,14 +42,10 @@ menus.provider('menus', function MenusProvider() {
     return compile;
   };
 
-  this.$get = [
-    '$rootScope',
-    '$state',
-    function($rootScope, $state) {
-      var menus = [];
-      reload($state, menus);
-      return menus;
-    }
-  ];
+  this.get = function() {
+    var menus = [];
+    reload($state, menus);
+    return menus;
+  };
 
-});
+}]);

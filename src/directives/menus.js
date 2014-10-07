@@ -1,9 +1,8 @@
-menus.directive('menus', [
+uiRouterMenusModule.directive('menus', [
   '$compile',
   '$rootScope',
   'menus',
   function($compile, $rootScope, menus) {
-    'use strict';
 
     return {
       link: {

@@ -23,7 +23,7 @@ var pkgFiles = {
   'karma-src-exclude': [],
   'karma-src': [
     '@karma',
-    'src/ui_router_menus.js',
+    'src/uiRouterMenusModule.js',
     'src/**/*.js',
     '@karma-tests'
   ],
@@ -31,7 +31,7 @@ var pkgFiles = {
     'test/**/*_test.js'
   ],
   src: [
-    'src/ui_router_menus.js',
+    'src/uiRouterMenusModule.js',
     'src/directives/menus.js',
     'src/services/menus.js'
   ]
