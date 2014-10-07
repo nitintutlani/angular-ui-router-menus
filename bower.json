@@ -2,6 +2,8 @@
   "name": "angular-ui-router-menus",
   "version": "0.1.0",
   "description": "angular-ui-router state for menu, nav, navbar, tab and other navigation tools",
+  "license": "MIT",
+  "homepage": "https://github.com/nitintutlani/angular-ui-router-menus",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -9,8 +11,9 @@
     "src",
     "test",
     "e2e",
-    "demo",
-    "Gruntfile.js",
+    "examples",
+    "gulpfile.js",
+    "karma.conf.js",
     "package.json"
   ],
   "keywords": [
@@ -23,10 +26,8 @@
     "tab",
     "navigation"
   ],
-  "license": "MIT",
-  "homepage": "https://github.com/nitintutlani/angular-ui-router-menus",
   "main": [
-    "./dist/angular-ui-router-menus.js"
+    "dist/angular-ui-router-menus.js"
   ],
   "dependencies": {
     "angular": ">=1.0.8",
