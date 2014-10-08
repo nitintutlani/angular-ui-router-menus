@@ -1,19 +1,8 @@
 'use strict';
 
-describe('Service: Menus', function() {
+describe('Service: `menus`', function() {
 
   var $stateProvider, $state, menus;
-
-  var stringMenuStates = {
-    'company': {
-      url: '/company',
-      menu: 'Company'
-    },
-    'company.about': {
-      url: '/about',
-      menu: 'About Us'
-    }
-  };
 
   describe('String menu states', function() {
 

@@ -3,15 +3,14 @@ uiRouterMenusModule.directive('menus', [
   '$rootScope',
   'menus',
   function($compile, $rootScope, menus) {
-
     return {
       link: {
         pre: function link(scope, element, attrs) {
           /* jshint unused: false */ /* for element, attrs */
-          scope.menus = menus;
+          scope.menus = menus.get();
         }
       },
-      restrict: 'AC'
+      restrict: 'A'
     };
   }
 ]);
