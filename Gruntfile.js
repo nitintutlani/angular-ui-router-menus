@@ -62,25 +62,25 @@ module.exports = function (grunt) {
       }
     },
     karma: {
-      unit: {
+      coverage: {
+        configFile: 'config/karma/coverage.conf.js',
         browsers: [ grunt.option('browser') || 'PhantomJS' ],
-        configFile: 'config/karma/src.conf.js',
         singleRun: true
       },
-      debug: {
-        singleRun: false,
-        background: false,
+      watch: {
         configFile: 'config/karma/src.conf.js',
-        browsers: [ grunt.option('browser') || 'Chrome' ]
+        browsers: [ grunt.option('browser') || 'Chrome' ],
+        singleRun: false,
+        background: false
       },
       build: {
-        browsers: [ grunt.option('browser') || 'PhantomJS' ],
         configFile: 'config/karma/build.conf.js',
+        browsers: [ grunt.option('browser') || 'PhantomJS' ],
         singleRun: true
       },
       min: {
-        browsers: [ grunt.option('browser') || 'PhantomJS' ],
         configFile: 'config/karma/min.conf.js',
+        browsers: [ grunt.option('browser') || 'PhantomJS' ],
         singleRun: true
       }
     },
@@ -103,13 +103,25 @@ module.exports = function (grunt) {
         }
       }
     },
+    coveralls: {
+      options: {
+        debug: true,
+        coverage_dir: 'test/coverage/',
+        dryRun: false,
+        force: false,
+        recursive: true
+      }
+    },
     watch: {
       files: ['src/*.js', 'test/**/*.js'],
       tasks: ['build']
     }
   });
 
-  grunt.registerTask('default', ['karma:unit', 'build']);
-  grunt.registerTask('build', 'Perform a normal build', ['concat', 'jshint:afterConcat', 'karma:build', 'uglify', 'karma:min']);
-  grunt.registerTask('dist', 'Perform a clean build', ['clean', 'build', 'copy:dist']);
+  grunt.registerTask('default', ['dist']);
+  grunt.registerTask('dist', 'Perform a clean build', ['reset', 'karma:coverage', 'coveralls', 'reset', 'karma:build', 'uglify', 'karma:min', 'copy:dist']);
+  grunt.registerTask('coverage', 'Perform a coverage build', ['reset', 'karma:coverage', 'coveralls']);
+  grunt.registerTask('build', 'Perform a normal build', ['reset', 'karma:build', 'uglify', 'karma:min']);
+  grunt.registerTask('reset', 'Perform a clean and concat task', ['clean', 'concat', 'jshint:afterConcat']);
+  grunt.registerTask('watch', 'Perform a watch build', ['reset', 'karma:watch']);
 };

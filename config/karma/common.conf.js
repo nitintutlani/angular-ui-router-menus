@@ -11,10 +11,11 @@ module.exports = function(config) {
     plugins: [
       'karma-jasmine',
       'karma-chrome-launcher',
-      'karma-phantomjs-launcher'
+      'karma-phantomjs-launcher',
+      'karma-coverage'
     ],
     port: 9876,
-    reporters: ['dots'],
+    reporters: ['dots', 'coverage'],
     runnerPort: 9100,
     singleRun: false
   });

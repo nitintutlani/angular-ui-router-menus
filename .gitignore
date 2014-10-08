@@ -4,3 +4,4 @@ bower_components
 build
 npm-debug.log
 references
+test/coverage

@@ -34,6 +34,11 @@ var pkgFiles = {
     'src/uiRouterMenusModule.js',
     'src/directives/menus.js',
     'src/services/menus.js'
+  ],
+  'karma-coverage': [
+    '@karma',
+    'build/' + pkg.name + '.js',
+    '@karma-tests'
   ]
 };
 

@@ -7,54 +7,62 @@
 
 (function (window, angular, undefined) {
 "use strict";
-// Source: src/ui_router_menus.js
-var menus = angular.module('ui.router.menus', ['ng', 'ui.router']);
+// Source: src/uiRouterMenusModule.js
+var uiRouterMenusModule = angular.module('ui.router.menus', ['ng', 'ui.router']);
 
 // Source: src/directives/menus.js
-menus.directive('menus', [
+uiRouterMenusModule.directive('menus', [
   '$compile',
   '$rootScope',
   'menus',
   function($compile, $rootScope, menus) {
-return {
+    return {
       link: {
         pre: function link(scope, element, attrs) {
           /* jshint unused: false */ /* for element, attrs */
-          scope.menus = menus;
+          scope.menus = menus.get();
         }
       },
-      restrict: 'AC'
+      restrict: 'A'
     };
   }
 ]);
 
 // Source: src/services/menus.js
-menus.provider('menus', function MenusProvider() {
-var compile;
+uiRouterMenusModule.service('menus', ['$state', function($state) {
+
+  var compile;
 
   function defaultCompiler(state) {
     if(!state.menu) { return null; }
 
+    var menu;
     if(typeof state.menu === 'string') {
-      state.menu = {
-        name: state.menu
+      menu = {
+        name: state.menu,
+        state: state
       };
     } else {
-      return state.menu;
+      menu = state.menu;
+      menu.state = state;
     }
+    //check name
+    //check css classes
+    //check other imp values
+    return menu;
   }
 
   compile = defaultCompiler;
 
   function reload($state, menus) {
-    var menu;
-
     menus.length = 0;
 
+    var menu;
     angular.forEach($state.get(), function(state) {
-      menu = compile(state); //?state.self
-      if(menu) { menus.unshift(menu); }
+      menu = compile(state);
+      if(menu) { menus.push(menu); }
     });
+
     return menus;
   }
 
@@ -65,14 +73,11 @@ var compile;
     return compile;
   };
 
-  this.$get = [
-    '$rootScope',
-    '$state',
-    function($rootScope, $state) {
-      var menus = [];
-      reload($state, menus);
-      return menus;
-    }
-  ];
+  this.get = function() {
+    var menus = [];
+    reload($state, menus);
+    return menus;
+  };
 
-});})(window, window.angular);
+}]);
+})(window, window.angular);
