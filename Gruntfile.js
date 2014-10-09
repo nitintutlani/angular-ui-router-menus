@@ -123,11 +123,11 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('default', ['test']);
   grunt.registerTask('dist', 'Perform a clean build', ['reset', 'karma:coverage', 'coveralls', 'reset', 'karma:build', 'uglify', 'karma:min', 'copy:dist']);
   grunt.registerTask('coverage', 'Perform a coverage build', ['reset', 'karma:coverage', 'coveralls']);
   grunt.registerTask('build', 'Perform a normal build', ['reset', 'karma:build', 'uglify', 'karma:min']);
-  grunt.registerTask('test', 'Perform a test build', ['reset', 'karma:test']);
   grunt.registerTask('reset', 'Perform a clean and concat task', ['clean', 'concat', 'jshint:afterConcat']);
-  grunt.registerTask('watch', 'Perform a watch task', ['reset', 'karma:test']);
+  grunt.registerTask('debug', 'Perform a debug task', ['karma:debug']);
+  grunt.registerTask('test', 'Perform a test build', ['karma:test']);
+  grunt.registerTask('default', ['test']);
 };
