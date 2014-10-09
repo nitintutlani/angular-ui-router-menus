@@ -17,10 +17,17 @@ var stringMenuStates = {
   }
 };
 
+//simple traverse based on state and menu names
 var stringMenuElement = '<ol menus>' +
     '<li ng-repeat="menu in menus">' +
     '<a ui-sref="{{menu.state.name}}">{{menu.name}}</a>' +
     '</li></ol>';
+
+//filter menus based on state names. (include: state name globs)
+var includeMenuElement = "<ol menus include=\" 'company' \">" +
+    "<li ng-repeat=\"menu in menus\">" +
+    "<a ui-sref=\"{{menu.state.name}}\">{{menu.name}}</a>" +
+    "</li></ol>";
 
 var tagMenuStates = {
   'company': {
@@ -34,7 +41,7 @@ var tagMenuStates = {
     url: '/about',
     menu: {
       name: 'About Us',
-      tag: 'company'
+      tag: 'other'
     }
   },
   'other': {
@@ -43,14 +50,20 @@ var tagMenuStates = {
       name: 'Other',
       tag: 'other'
     }
+  },
+  'jobs': {
+    url: '/jobs',
+    menu: {
+      name: 'Jobs',
+      tag: 'company'
+    }
   }
 };
 
-var tagMenuElement = '<ol menus menus-tag="company">' +
-    '<li ng-repeat="menu in menus">' +
-    '<a ui-sref="{{menu.state.name}}">{{menu.name}}</a>' +
-    '</li></ol>';
-
+var tagMenuElement = "<ol menus tag=\" 'company' \">" +
+    "<li ng-repeat=\"menu in menus\">" +
+    "<a ui-sref=\"{{menu.state.name}}\">{{menu.name}}</a>" +
+    "</li></ol>";
 
 /* Complex
  states = {

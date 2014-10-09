@@ -6,7 +6,8 @@ var isDefined = angular.isDefined,
     isArray = angular.isArray,
     forEach = angular.forEach,
     extend = angular.extend,
-    copy = angular.copy;
+    copy = angular.copy,
+    equals = angular.equals;
 
 /**
  * glob is a string that contains wildcards * ?

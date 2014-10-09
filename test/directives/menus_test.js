@@ -24,7 +24,7 @@ describe('Directive: `menus`', function() {
       expect(scope.menus).toEqual(menus.get());
     }));
 
-    it('should compile the element such that ui-router directives work',
+    it('should compile the stringMenuElement such that ui-router directives work',
         inject(function($compile, menus) {
       var items,
           anchors,
@@ -42,6 +42,65 @@ describe('Directive: `menus`', function() {
         expect(anchors[i].attributes['href'].value).toEqual(href[i]);
       }
     }));
+
+    it('should compile the includeMenuElement for attributes',
+        inject(function($compile, menus) {
+          var items, compiled = $compile(includeMenuElement)(scope);
+          scope.$apply();
+          items = compiled.children();
+          var menuItems = menus.get({include: 'company'});
+          expect(items.length).toBe(menuItems.length);
+        }));
+
+  });
+
+  describe('Tag menu states', function() {
+
+    beforeEach(function() {
+      module('ui.router', function(_$stateProvider_) {
+        $stateProvider = _$stateProvider_;
+        loadStates(tagMenuStates, $stateProvider);
+      });
+      module('ui.router.menus');
+      inject(function (_$rootScope_) {
+        scope = _$rootScope_.$new();
+      });
+    });
+
+    it('should make the menus service available to the elements scope',
+        inject(function($compile, menus) {
+      $compile(tagMenuElement)(scope);
+      expect(scope.menus).toBeDefined();
+      expect(scope.menus).toEqual(menus.get({tag: 'company'}));
+    }));
+
+    it('should compile the tagMenuElement such that ui-router directives work',
+        inject(function($compile, menus) {
+          var items,
+              anchors,
+              href = ['#/company', '#/jobs'],
+              compiled = $compile(tagMenuElement)(scope);
+
+          scope.$apply();
+          items = compiled.children();
+          var menuItems = menus.get({tag: 'company'});
+          expect(items.length).toBe(menuItems.length);
+          anchors = items.children();
+          for(var i = 0; i < anchors.length; i++) {
+            expect(anchors[i].text).toEqual(menuItems[i].name);
+            expect(anchors[i].attributes['ui-sref'].value).toEqual(menuItems[i].state.name);
+            expect(anchors[i].attributes['href'].value).toEqual(href[i]);
+          }
+        }));
+
+    it('should compile the tagMenuElement for attributes',
+        inject(function($compile, menus) {
+          var items, compiled = $compile(tagMenuElement)(scope);
+          scope.$apply();
+          items = compiled.children();
+          var menuItems = menus.get({tag: 'company'});
+          expect(items.length).toBe(menuItems.length);
+        }));
 
   });
 

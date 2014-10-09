@@ -66,29 +66,29 @@ describe('Service: `menus`', function() {
       });
     });
 
-    it('should return 4 states', function() {
+    it('should return 5 states', function() {
       var states = $state.get();
-      expect(states.length).toBe(4);
+      expect(states.length).toBe(5);
     });
 
-    it('should return 3 menus', function() {
-      expect(menus.get().length).toBe(3);
+    it('should return 4 menus', function() {
+      expect(menus.get().length).toBe(4);
     });
 
     it('should return 2 company menus', function() {
       expect(menus.get({tag: 'company'}).length).toBe(2);
     });
 
-    it('should return 1 other menu', function() {
-      expect(menus.get({tag: 'other'}).length).toBe(1);
+    it('should return 2 other menu', function() {
+      expect(menus.get({tag: 'other'}).length).toBe(2);
     });
 
-    it('should return 3 company|other menus', function() {
-      expect(menus.get({tag: 'company other'}).length).toBe(3);
+    it('should return 4 company|other menus', function() {
+      expect(menus.get({tag: 'company other'}).length).toBe(4);
     });
 
-    it('should return 3 other|other menus', function() {
-      expect(menus.get({tag: 'other company'}).length).toBe(3);
+    it('should return 4 other|company menus', function() {
+      expect(menus.get({tag: 'other company'}).length).toBe(4);
     });
 
   });
