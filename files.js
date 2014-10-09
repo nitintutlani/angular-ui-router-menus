@@ -1,14 +1,14 @@
 var pkg = require('./package.json');
 
 var pkgFiles = {
-  build: [
-    'build/*.min.js'
-  ],
   karma: [
     'bower_components/angular/angular.js',
     'bower_components/angular-ui-router/release/angular-ui-router.js',
     'bower_components/angular-mocks/angular-mocks.js',
     'test/helpers.js'
+  ],
+  'karma-tests': [
+    'test/**/*_test.js'
   ],
   'karma-build': [
     '@karma',
@@ -20,25 +20,22 @@ var pkgFiles = {
     'build/' + pkg.name + '.min.js',
     '@karma-tests'
   ],
-  'karma-src-exclude': [],
   'karma-src': [
     '@karma',
+    'src/common.js',
     'src/uiRouterMenusModule.js',
     'src/**/*.js',
     '@karma-tests'
   ],
-  'karma-tests': [
-    'test/**/*_test.js'
+  'karma-src-exclude': [],
+  build: [
+    'build/*.min.js'
   ],
   src: [
+    'src/common.js',
     'src/uiRouterMenusModule.js',
     'src/directives/menus.js',
     'src/services/menus.js'
-  ],
-  'karma-coverage': [
-    '@karma',
-    'build/' + pkg.name + '.js',
-    '@karma-tests'
   ]
 };
 

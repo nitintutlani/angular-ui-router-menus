@@ -67,11 +67,16 @@ module.exports = function (grunt) {
         browsers: [ grunt.option('browser') || 'PhantomJS' ],
         singleRun: true
       },
-      watch: {
+      debug: {
         configFile: 'config/karma/src.conf.js',
         browsers: [ grunt.option('browser') || 'Chrome' ],
         singleRun: false,
         background: false
+      },
+      test: {
+        configFile: 'config/karma/src.conf.js',
+        browsers: [ grunt.option('browser') || 'PhantomJS' ],
+        singleRun: true
       },
       build: {
         configFile: 'config/karma/build.conf.js',
@@ -118,10 +123,11 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('default', ['dist']);
+  grunt.registerTask('default', ['test']);
   grunt.registerTask('dist', 'Perform a clean build', ['reset', 'karma:coverage', 'coveralls', 'reset', 'karma:build', 'uglify', 'karma:min', 'copy:dist']);
   grunt.registerTask('coverage', 'Perform a coverage build', ['reset', 'karma:coverage', 'coveralls']);
   grunt.registerTask('build', 'Perform a normal build', ['reset', 'karma:build', 'uglify', 'karma:min']);
+  grunt.registerTask('test', 'Perform a test build', ['reset', 'karma:test']);
   grunt.registerTask('reset', 'Perform a clean and concat task', ['clean', 'concat', 'jshint:afterConcat']);
-  grunt.registerTask('watch', 'Perform a watch build', ['reset', 'karma:watch']);
+  grunt.registerTask('watch', 'Perform a watch task', ['reset', 'karma:test']);
 };
