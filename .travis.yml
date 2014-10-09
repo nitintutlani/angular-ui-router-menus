@@ -9,3 +9,5 @@ before_script:
   - bower install
 
 script: "grunt"
+
+after_script: grunt coverage
