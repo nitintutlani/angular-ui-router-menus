@@ -15,7 +15,7 @@ module.exports = function(config) {
       'karma-coverage'
     ],
     port: 9876,
-    reporters: ['dots', 'coverage'],
+    reporters: ['dots'],
     runnerPort: 9100,
     singleRun: false
   });

@@ -123,8 +123,8 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('dist', 'Perform a clean build', ['reset', 'karma:coverage', 'coveralls', 'reset', 'karma:build', 'uglify', 'karma:min', 'copy:dist']);
-  grunt.registerTask('coverage', 'Perform a coverage build', ['reset', 'karma:coverage', 'coveralls']);
+  grunt.registerTask('dist', 'Perform a clean build', ['reset', 'karma:coverage', 'coveralls', 'uglify', 'karma:min', 'copy:dist']);
+  grunt.registerTask('coverage', 'Perform a coverage build', ['reset', 'karma:coverage']);
   grunt.registerTask('build', 'Perform a normal build', ['reset', 'karma:build', 'uglify', 'karma:min']);
   grunt.registerTask('reset', 'Perform a clean and concat task', ['clean', 'concat', 'jshint:afterConcat']);
   grunt.registerTask('debug', 'Perform a debug task', ['karma:debug']);
