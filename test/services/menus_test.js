@@ -25,7 +25,6 @@ describe('Service: `menus`', function() {
     });
 
     it('should return 2 menus', function() {
-      //2 menu objects: [Object{name: 'About Us'}, Object{name: 'Company'}]
       expect(menus.get().length).toBe(2);
     });
 
@@ -35,37 +34,63 @@ describe('Service: `menus`', function() {
       expect(items[1].state.url).toBe('/about');
     });
 
+    it('should return 1 company menu', function() {
+      expect(menus.get({include: 'company'}).length).toBe(1);
+    });
+
+    it('should return 1 company.* menu', function() {
+      expect(menus.get({include: 'company.*'}).length).toBe(1);
+    });
+
+    it('should return 2 company* menu', function() {
+      expect(menus.get({include: 'company*'}).length).toBe(2);
+    });
+
+    it('should return 0 unknown menu', function() {
+      expect(menus.get({include: 'unknown'}).length).toBe(0);
+    });
+
   });
 
-/*
-    states = {
-      'home': {
-        url: '/home',
-        templateUrl: 'view/index.html',
-        menu: 'Dashboard'
-      },
-      'users': {
-        url: '/users',
-        templateUrl: 'view/users.list.html',
-        controller: 'UsersListController',
-        menu: {
-          name: 'Users management',
-          class: {
-            active: 'active',
-            hasChild: 'parent',
-            custom: 'bg-green fg-yellow'
-          }
-        }
-      },
-      'users.edit': {
-        url: '/edit/{id}',
-        templateUrl: 'view/users.edit.html',
-        controller: 'UsersEditController',
-        menu: {
-          exclude: true //excluded menu item
-        }
-      }
-    };
-*/
+  describe('Tag menu states', function() {
+
+    beforeEach(function() {
+      module('ui.router', function(_$stateProvider_) {
+        $stateProvider = _$stateProvider_;
+        loadStates(tagMenuStates, $stateProvider);
+      });
+      module('ui.router.menus');
+      inject(function (_menus_, _$state_) {
+        menus = _menus_;
+        $state = _$state_;
+      });
+    });
+
+    it('should return 4 states', function() {
+      var states = $state.get();
+      expect(states.length).toBe(4);
+    });
+
+    it('should return 3 menus', function() {
+      expect(menus.get().length).toBe(3);
+    });
+
+    it('should return 2 company menus', function() {
+      expect(menus.get({tag: 'company'}).length).toBe(2);
+    });
+
+    it('should return 1 other menu', function() {
+      expect(menus.get({tag: 'other'}).length).toBe(1);
+    });
+
+    it('should return 3 company|other menus', function() {
+      expect(menus.get({tag: 'company other'}).length).toBe(3);
+    });
+
+    it('should return 3 other|other menus', function() {
+      expect(menus.get({tag: 'other company'}).length).toBe(3);
+    });
+
+  });
 
 });

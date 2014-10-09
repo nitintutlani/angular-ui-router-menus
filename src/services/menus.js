@@ -1,8 +1,7 @@
 uiRouterMenusModule.service('menus', ['$state', function($state) {
 
-  var compile;
-
-  function defaultCompiler(state) {
+  //Converts a state to menu based on menu definition object.
+  function compile(state) {
     if(!state.menu) { return null; }
 
     var menu;
@@ -15,36 +14,51 @@ uiRouterMenusModule.service('menus', ['$state', function($state) {
       menu = state.menu;
       menu.state = state;
     }
-    //check name
+    //check name?
     //check css classes
     //check other imp values
     return menu;
   }
 
-  compile = defaultCompiler;
+  /**
+   *
+   * @param options Optional settings for returning menus collection
+   * @returns {Array}
+   */
+  this.get = function(options) {
+    options = options || {}; //optional options
 
-  function reload($state, menus) {
-    menus.length = 0;
+    var menus = []; //resulting array of menus
 
-    var menu;
-    angular.forEach($state.get(), function(state) {
-      menu = compile(state);
-      if(menu) { menus.push(menu); }
+    var states = $state.get(); //fetch all states in ui-router (using $state service)
+
+    //Filter states based on includes
+    var includes = options.include || null;
+    if(includes) {
+      includes = globsToPatterns(includes);
+      states = states.filter(function(state) {
+        return matchAny(includes, state.name);
+      });
+    }
+
+    var tags = options.tag || null;
+    if(tags) { tags = globsToPatterns(tags); }
+
+    forEach(states, function(state) {
+      var menu = compile(state);
+      if(menu) { //push only if a valid menu is returned
+        if(tags) { //filter menus for tags
+          if(isDefined(menu.tag)) { //only if menu has a tag, skip tag less menu items
+            if(matchAny(tags, menu.tag)) {
+              menus.push(menu);
+            }
+          }
+        } else {
+          menus.push(menu); //always push as no tags filter applied
+        }
+      }
     });
 
-    return menus;
-  }
-
-  // Public Interface
-
-  this.compileWith = function(customCompiler) {
-    var compile = customCompiler || defaultCompiler;
-    return compile;
-  };
-
-  this.get = function() {
-    var menus = [];
-    reload($state, menus);
     return menus;
   };
 
