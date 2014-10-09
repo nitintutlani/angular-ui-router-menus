@@ -14,14 +14,24 @@ menuApp.config(function($stateProvider) {
   $stateProvider
       .state('home', {
         url: '/',
-        template: '<h1>Home</h1>'
+        templateUrl: 'templates/home.html'
       })
       .state('navbar', {
         url: '/navbar',
         templateUrl: 'templates/navbar.html',
         menu: {
           name: 'Nav Bar',
-          tag: 'sidebar'
+          tag: 'sidebar',
+          priority: 10
+        }
+      })
+      .state('dropdown', {
+        url: '/dropdown',
+        templateUrl: 'templates/dropdown.html',
+        menu: {
+          name: 'Dropdown',
+          tag: 'sidebar',
+          priority: 1
         }
       })
       .state('tabs', {
@@ -29,7 +39,8 @@ menuApp.config(function($stateProvider) {
         templateUrl: 'templates/tabs.html',
         menu: {
           name: 'Tabs',
-          tag: 'sidebar'
+          tag: 'sidebar',
+          priority: 5
         }
       })
   ;

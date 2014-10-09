@@ -24,8 +24,8 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="bs-docs-sidebar hidden-print hidden-sm hidden-xs">
-                <ul menus  menus-tag="sidebar" class="nav bs-docs-sidenav">
-                    <li ng-repeat="menu in menus"><a ui-sref="{{menu.state.name}}">{{menu.name}}</a></li>
+                <ul menus tag=" 'sidebar' " class="nav bs-docs-sidenav">
+                    <li ng-repeat="menu in menus | orderBy:'-priority'"><a ui-sref="{{menu.state.name}}">{{menu.name}}</a></li>
                 </ul>
             </div>
         </div>
