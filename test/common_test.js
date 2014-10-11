@@ -7,8 +7,8 @@ describe('Common functions: ', function() {
   describe('Common glob functions', function() {
 
     beforeEach(function() {
-      globs = 'nitin* *nitin ni*in n?t?n';
-      patterns = ['^nitin.*$', '^.*nitin$', '^ni.*in$', '^n.t.n$'];
+      globs = 'nitin* *nitin ni*in n?t?n n\\*n';
+      patterns = ['^nitin.*$', '^.*nitin$', '^ni.*in$', '^n.t.n$', '^n\\*n$'];
     });
 
     it(globs + ' should return valid patterns', function() {

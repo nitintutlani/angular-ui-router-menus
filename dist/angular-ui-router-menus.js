@@ -1,6 +1,6 @@
 /**
  * angular-ui-router state derived menu, nav, navbar, tab and other navigation tools
- * @version v0.1.0-dev-2014-10-10
+ * @version v0.1.2-dev-2014-10-12
  * @link https://github.com/nitintutlani/angular-ui-router-menus
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -17,7 +17,8 @@ var isDefined = angular.isDefined,
     forEach = angular.forEach,
     extend = angular.extend,
     copy = angular.copy,
-    equals = angular.equals;
+    equals = angular.equals,
+    noop = angular.noop;
 
 /**
  * glob is a string that contains wildcards * ?
@@ -62,9 +63,7 @@ function globToPattern(str) {
  */
 function globsToPatterns(globs) {
   var patterns = [];
-  if(isString(globs)) {
-    globs = globs.split(' ');
-  }
+  if(isString(globs)) { globs = globs.split(' '); }
   if(isArray(globs)) {
     for(var i=0; i < globs.length; i++) {
       patterns.push(globToPattern(globs[i]));
@@ -108,27 +107,24 @@ function matchGlobs(globs, str) {
 var uiRouterMenusModule = angular.module('ui.router.menus', ['ng', 'ui.router']);
 
 // Source: src/directives/menus.js
-uiRouterMenusModule.directive('menus', [
-  '$compile',
-  '$rootScope',
-  'menus',
-  function($compile, $rootScope, menus) {
+uiRouterMenusModule.directive('menus', [ 'menus', function(menus) {
     return {
       link: {
+        restrict: 'EA',
+        scope: {
+          menus: '=',
+          type: '@',
+          include: '@',
+          tag: '@'
+        },
         pre: function link(scope, element, attrs) {
-          /* jshint unused: false */ /* for element */
-          attrs = attrs || {}; //fail safe
-          var options = {}; //Future: scope.$eval(attrs.menus) || {};
-          if(isDefined(attrs.include)) {//if include available
-            options.include = scope.$eval(attrs.include);
-          }
-          if(isDefined(attrs.tag)) { //if tag available
-            options.tag = scope.$eval(attrs.tag);
-          }
-          scope.menus = menus.get(options);
+          var menuOptions = {};
+          if(isDefined(attrs.type)) { menuOptions.type =  attrs.type; }
+          if(isDefined(attrs.include)) { menuOptions.include =  attrs.include; }
+          if(isDefined(attrs.tag)) { menuOptions.tag =  attrs.tag; }
+          scope[attrs.menus] = menus.get(menuOptions);
         }
-      },
-      restrict: 'EA'
+      }
     };
   }
 ]);
@@ -150,13 +146,11 @@ uiRouterMenusModule.service('menus', ['$state', function($state) {
       menu = state.menu;
       menu.state = state;
     }
-    //check name?
-    //check css classes
-    //check other imp values
     return menu;
   }
 
   /**
+   * Get menus collection generated from states
    *
    * @param options Optional settings for returning menus collection
    * @returns {Array}
@@ -194,6 +188,13 @@ uiRouterMenusModule.service('menus', ['$state', function($state) {
         }
       }
     });
+
+    var type = options.type || 'group'; //@todo Default type needs to be group
+
+    if(type === 'group') {
+      //order by state name
+      //nested group by state name
+    }
 
     return menus;
   };

@@ -7,7 +7,7 @@ module.exports = function (grunt) {
   var files = require('./files').files;
 
   grunt.initConfig({
-    builddir: 'build',
+    builddir: 'dist',
     buildtag: '-dev-' + grunt.template.today('yyyy-mm-dd'),
     clean: [ '<%= builddir %>' ],
     concat: {
@@ -24,17 +24,6 @@ module.exports = function (grunt) {
       build: {
         src: files.src,
         dest: '<%= builddir %>/<%= pkg.name %>.js'
-      }
-    },
-    copy: {
-      dist: {
-        files: [{
-          expand: true,
-          dest: 'dist',
-          filter: 'isFile',
-          flatten: true,
-          src: ['build/*.js']
-        }]
       }
     },
     jshint: {
@@ -78,8 +67,8 @@ module.exports = function (grunt) {
         browsers: [ grunt.option('browser') || 'PhantomJS' ],
         singleRun: true
       },
-      build: {
-        configFile: 'config/karma/build.conf.js',
+      dist: {
+        configFile: 'config/karma/dist.conf.js',
         browsers: [ grunt.option('browser') || 'PhantomJS' ],
         singleRun: true
       },
@@ -123,9 +112,9 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('dist', 'Perform a clean build', ['reset', 'karma:build', 'uglify', 'karma:min', 'copy:dist']);
+  grunt.registerTask('dist', 'Perform a clean build', ['reset', 'karma:dist', 'uglify', 'karma:min']); //@todo add version bump and git push and tag tasks
   grunt.registerTask('coverage', 'Perform a coverage build', ['reset', 'karma:coverage', 'coveralls']);
-  grunt.registerTask('build', 'Perform a normal build', ['reset', 'karma:build', 'uglify', 'karma:min']);
+  grunt.registerTask('build', 'Perform a normal build', ['reset', 'karma:dist', 'uglify', 'karma:min']);
   grunt.registerTask('reset', 'Perform a clean and concat task', ['clean', 'concat', 'jshint:afterConcat']);
   grunt.registerTask('debug', 'Perform a debug task', ['karma:debug']);
   grunt.registerTask('test', 'Perform a test build', ['karma:test']);

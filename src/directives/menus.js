@@ -1,4 +1,4 @@
-uiRouterMenusModule.directive('menus', function(menus) {
+uiRouterMenusModule.directive('menus', [ 'menus', function(menus) {
     return {
       link: {
         restrict: 'EA',
@@ -10,12 +10,12 @@ uiRouterMenusModule.directive('menus', function(menus) {
         },
         pre: function link(scope, element, attrs) {
           var menuOptions = {};
-          if(isDefined(attrs.type)) { menuOptions.type =  attrs.type }
-          if(isDefined(attrs.include)) { menuOptions.include =  attrs.include }
-          if(isDefined(attrs.tag)) { menuOptions.tag =  attrs.tag }
+          if(isDefined(attrs.type)) { menuOptions.type =  attrs.type; }
+          if(isDefined(attrs.include)) { menuOptions.include =  attrs.include; }
+          if(isDefined(attrs.tag)) { menuOptions.tag =  attrs.tag; }
           scope[attrs.menus] = menus.get(menuOptions);
         }
       }
     };
   }
-);
+]);

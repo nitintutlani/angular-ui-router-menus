@@ -6,9 +6,9 @@ module.exports = function(config) {
 
   config.set({
     reporters: ['coverage'],
-    files: files.mergeFilesFor('karma-build'), //karma coverage uses karma-build files.
+    files: files.mergeFilesFor('karma-dist'), //karma coverage uses karma-dist files.
     preprocessors: {
-      "**/build/*.js": "coverage"
+      "**/dist/*.js": "coverage"
     },
     coverageReporter: {
       type: "lcov",

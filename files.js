@@ -11,14 +11,14 @@ var pkgFiles = {
   'karma-tests': [
     'test/**/*_test.js'
   ],
-  'karma-build': [
+  'karma-dist': [
     '@karma',
-    'build/' + pkg.name + '.js',
+    'dist/' + pkg.name + '.js',
     '@karma-tests'
   ],
   'karma-min': [
     '@karma',
-    'build/' + pkg.name + '.min.js',
+    'dist/' + pkg.name + '.min.js',
     '@karma-tests'
   ],
   'karma-src': [
@@ -29,8 +29,8 @@ var pkgFiles = {
     '@karma-tests'
   ],
   'karma-src-exclude': [],
-  build: [
-    'build/*.min.js'
+  dist: [
+    'dist/' + pkg.name + '.js'
   ],
   src: [
     'src/common.js',

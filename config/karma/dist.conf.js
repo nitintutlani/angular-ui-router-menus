@@ -5,6 +5,6 @@ module.exports = function(config) {
   commonConfig(config);
 
   config.set({
-    files: files.mergeFilesFor('karma-build')
+    files: files.mergeFilesFor('karma-dist')
   });
 };

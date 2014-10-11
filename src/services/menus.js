@@ -59,7 +59,7 @@ uiRouterMenusModule.service('menus', ['$state', function($state) {
 
     var type = options.type || 'group'; //@todo Default type needs to be group
 
-    if(type == 'group') {
+    if(type === 'group') {
       //order by state name
       //nested group by state name
     }
