@@ -7,7 +7,8 @@ var isDefined = angular.isDefined,
     forEach = angular.forEach,
     extend = angular.extend,
     copy = angular.copy,
-    equals = angular.equals;
+    equals = angular.equals,
+    noop = angular.noop;
 
 /**
  * glob is a string that contains wildcards * ?
@@ -52,9 +53,7 @@ function globToPattern(str) {
  */
 function globsToPatterns(globs) {
   var patterns = [];
-  if(isString(globs)) {
-    globs = globs.split(' ');
-  }
+  if(isString(globs)) { globs = globs.split(' '); }
   if(isArray(globs)) {
     for(var i=0; i < globs.length; i++) {
       patterns.push(globToPattern(globs[i]));

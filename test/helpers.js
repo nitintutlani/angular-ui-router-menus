@@ -18,13 +18,13 @@ var stringMenuStates = {
 };
 
 //simple traverse based on state and menu names
-var stringMenuElement = '<ol menus>' +
-    '<li ng-repeat="menu in menus">' +
+var stringMenuElement = '<ol menus="menuItems" >' +
+    '<li ng-repeat="menu in menuItems">' +
     '<a ui-sref="{{menu.state.name}}">{{menu.name}}</a>' +
     '</li></ol>';
 
 //filter menus based on state names. (include: state name globs)
-var includeMenuElement = "<ol menus include=\" 'company' \">" +
+var includeMenuElement = "<ol menus=\"menus\" include=\"company\">" +
     "<li ng-repeat=\"menu in menus\">" +
     "<a ui-sref=\"{{menu.state.name}}\">{{menu.name}}</a>" +
     "</li></ol>";
@@ -60,7 +60,7 @@ var tagMenuStates = {
   }
 };
 
-var tagMenuElement = "<ol menus tag=\" 'company' \">" +
+var tagMenuElement = "<ol menus=\"menus\" tag=\"company\">" +
     "<li ng-repeat=\"menu in menus\">" +
     "<a ui-sref=\"{{menu.state.name}}\">{{menu.name}}</a>" +
     "</li></ol>";

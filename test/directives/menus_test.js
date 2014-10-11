@@ -20,8 +20,8 @@ describe('Directive: `menus`', function() {
     it('should make the menus service available to the elements scope',
         inject(function($compile, menus) {
       $compile(stringMenuElement)(scope);
-      expect(scope.menus).toBeDefined();
-      expect(scope.menus).toEqual(menus.get());
+      expect(scope.menuItems).toBeDefined();
+      expect(scope.menuItems).toEqual(menus.get());
     }));
 
     it('should compile the stringMenuElement such that ui-router directives work',

@@ -1,24 +1,21 @@
-uiRouterMenusModule.directive('menus', [
-  '$compile',
-  '$rootScope',
-  'menus',
-  function($compile, $rootScope, menus) {
+uiRouterMenusModule.directive('menus', function(menus) {
     return {
       link: {
+        restrict: 'EA',
+        scope: {
+          menus: '=',
+          type: '@',
+          include: '@',
+          tag: '@'
+        },
         pre: function link(scope, element, attrs) {
-          /* jshint unused: false */ /* for element */
-          attrs = attrs || {}; //fail safe
-          var options = {}; //Future: scope.$eval(attrs.menus) || {};
-          if(isDefined(attrs.include)) {//if include available
-            options.include = scope.$eval(attrs.include);
-          }
-          if(isDefined(attrs.tag)) { //if tag available
-            options.tag = scope.$eval(attrs.tag);
-          }
-          scope.menus = menus.get(options);
+          var menuOptions = {};
+          if(isDefined(attrs.type)) { menuOptions.type =  attrs.type }
+          if(isDefined(attrs.include)) { menuOptions.include =  attrs.include }
+          if(isDefined(attrs.tag)) { menuOptions.tag =  attrs.tag }
+          scope[attrs.menus] = menus.get(menuOptions);
         }
-      },
-      restrict: 'EA'
+      }
     };
   }
-]);
+);

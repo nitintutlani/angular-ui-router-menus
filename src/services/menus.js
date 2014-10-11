@@ -14,13 +14,11 @@ uiRouterMenusModule.service('menus', ['$state', function($state) {
       menu = state.menu;
       menu.state = state;
     }
-    //check name?
-    //check css classes
-    //check other imp values
     return menu;
   }
 
   /**
+   * Get menus collection generated from states
    *
    * @param options Optional settings for returning menus collection
    * @returns {Array}
@@ -58,6 +56,13 @@ uiRouterMenusModule.service('menus', ['$state', function($state) {
         }
       }
     });
+
+    var type = options.type || 'group'; //@todo Default type needs to be group
+
+    if(type == 'group') {
+      //order by state name
+      //nested group by state name
+    }
 
     return menus;
   };
