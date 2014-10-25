@@ -18,14 +18,14 @@ describe('Directive: `menus`', function() {
     });
 
     it('should make the menus service available to the elements scope',
-        inject(function($compile, menus) {
+        inject(function($compile, $menus) {
       $compile(stringMenuElement)(scope);
       expect(scope.menuItems).toBeDefined();
-      expect(scope.menuItems).toEqual(menus.get());
+      expect(scope.menuItems).toEqual($menus.get());
     }));
 
     it('should compile the stringMenuElement such that ui-router directives work',
-        inject(function($compile, menus) {
+        inject(function($compile, $menus) {
       var items,
           anchors,
           href = ['#/company', '#/company/about'],
@@ -33,7 +33,7 @@ describe('Directive: `menus`', function() {
 
       scope.$apply();
       items = compiled.children();
-      var menuItems = menus.get();
+      var menuItems = $menus.get();
       expect(items.length).toBe(menuItems.length);
       anchors = items.children();
       for(var i = 0; i < anchors.length; i++) {
@@ -44,11 +44,11 @@ describe('Directive: `menus`', function() {
     }));
 
     it('should compile the includeMenuElement for attributes',
-        inject(function($compile, menus) {
+        inject(function($compile, $menus) {
           var items, compiled = $compile(includeMenuElement)(scope);
           scope.$apply();
           items = compiled.children();
-          var menuItems = menus.get({include: 'company'});
+          var menuItems = $menus.get({include: 'company'});
           expect(items.length).toBe(menuItems.length);
         }));
 
@@ -68,14 +68,14 @@ describe('Directive: `menus`', function() {
     });
 
     it('should make the menus service available to the elements scope',
-        inject(function($compile, menus) {
+        inject(function($compile, $menus) {
       $compile(tagMenuElement)(scope);
       expect(scope.menus).toBeDefined();
-      expect(scope.menus).toEqual(menus.get({tag: 'company'}));
+      expect(scope.menus).toEqual($menus.get({tag: 'company'}));
     }));
 
     it('should compile the tagMenuElement such that ui-router directives work',
-        inject(function($compile, menus) {
+        inject(function($compile, $menus) {
           var items,
               anchors,
               href = ['#/company', '#/jobs'],
@@ -83,7 +83,7 @@ describe('Directive: `menus`', function() {
 
           scope.$apply();
           items = compiled.children();
-          var menuItems = menus.get({tag: 'company'});
+          var menuItems = $menus.get({tag: 'company'});
           expect(items.length).toBe(menuItems.length);
           anchors = items.children();
           for(var i = 0; i < anchors.length; i++) {
@@ -94,11 +94,11 @@ describe('Directive: `menus`', function() {
         }));
 
     it('should compile the tagMenuElement for attributes',
-        inject(function($compile, menus) {
+        inject(function($compile, $menus) {
           var items, compiled = $compile(tagMenuElement)(scope);
           scope.$apply();
           items = compiled.children();
-          var menuItems = menus.get({tag: 'company'});
+          var menuItems = $menus.get({tag: 'company'});
           expect(items.length).toBe(menuItems.length);
         }));
 

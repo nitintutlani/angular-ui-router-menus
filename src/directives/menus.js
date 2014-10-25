@@ -1,4 +1,4 @@
-uiRouterMenusModule.directive('menus', [ 'menus', function(menus) {
+uiRouterMenusModule.directive('menus', [ '$menus', function($menus) {
     return {
       link: {
         restrict: 'EA',
@@ -13,7 +13,7 @@ uiRouterMenusModule.directive('menus', [ 'menus', function(menus) {
           if(isDefined(attrs.type)) { menuOptions.type =  attrs.type; }
           if(isDefined(attrs.include)) { menuOptions.include =  attrs.include; }
           if(isDefined(attrs.tag)) { menuOptions.tag =  attrs.tag; }
-          scope[attrs.menus] = menus.get(menuOptions);
+          scope[attrs.menus] = $menus.get(menuOptions);
         }
       }
     };

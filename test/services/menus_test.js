@@ -12,8 +12,8 @@ describe('Service: `menus`', function() {
         loadStates(stringMenuStates, $stateProvider);
       });
       module('ui.router.menus');
-      inject(function (_menus_, _$state_) {
-        menus = _menus_;
+      inject(function (_$menus_, _$state_) {
+        menus = _$menus_;
         $state = _$state_;
       });
     });
@@ -60,8 +60,8 @@ describe('Service: `menus`', function() {
         loadStates(tagMenuStates, $stateProvider);
       });
       module('ui.router.menus');
-      inject(function (_menus_, _$state_) {
-        menus = _menus_;
+      inject(function (_$menus_, _$state_) {
+        menus = _$menus_;
         $state = _$state_;
       });
     });
