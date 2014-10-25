@@ -24,8 +24,8 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="bs-docs-sidebar hidden-print hidden-sm hidden-xs">
-                <ul menus tag=" 'sidebar' " class="nav bs-docs-sidenav">
-                    <li ng-repeat="menu in menus | orderBy:'-priority'"><a ui-sref="{{menu.state.name}}">{{menu.name}}</a></li>
+                <ul menus="menuItems" tag="sidebar" class="nav bs-docs-sidenav">
+                    <li ng-repeat="menu in menuItems | orderBy:'-priority'"><a ui-sref="{{menu.state.name}}">{{menu.name}}</a></li>
                 </ul>
             </div>
         </div>
@@ -36,11 +36,11 @@
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.2/ui-bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.2/ui-bootstrap-tpls.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.11/angular-ui-router.min.js"></script>
+<script src="../dist/angular-ui-router-menus.js"></script>
 <script src="js/app.js"></script>
-<script src="../dist/angular-ui-router-menus.min.js"></script>
 </body>
 </html>

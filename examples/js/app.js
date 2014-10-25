@@ -1,5 +1,5 @@
 var menuApp = angular.module('menuApp', [
-  'ui.router', 'ui.router.menus'
+  'ui.router', 'ui.router.menus', 'ui.bootstrap'
 ]);
 
 menuApp.config(function ($urlRouterProvider, $locationProvider) {
@@ -14,7 +14,12 @@ menuApp.config(function($stateProvider) {
   $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'templates/home.html'
+        templateUrl: 'templates/home.html',
+        menu: {
+          name: 'Home',
+          tag: 'sidebar',
+          priority: 100
+        }
       })
       .state('navbar', {
         url: '/navbar',
@@ -23,15 +28,6 @@ menuApp.config(function($stateProvider) {
           name: 'Nav Bar',
           tag: 'sidebar',
           priority: 10
-        }
-      })
-      .state('dropdown', {
-        url: '/dropdown',
-        templateUrl: 'templates/dropdown.html',
-        menu: {
-          name: 'Dropdown',
-          tag: 'sidebar',
-          priority: 1
         }
       })
       .state('tabs', {
@@ -51,17 +47,40 @@ menuApp.config(function($stateProvider) {
 menuApp.config(function($stateProvider) {
   $stateProvider
       .state('navbar.button1', {
-        url: '#',
         menu: {
           name: 'Button 1',
           tag: 'navbar'
         }
       })
       .state('navbar.button2', {
-        url: '#',
         menu: {
           name: 'Button 2',
           tag: 'navbar'
+        }
+      })
+  ;
+});
+
+menuApp.config(function($stateProvider) {
+  $stateProvider
+      .state('tabs.1', {
+        template: 'test tab 1',
+        menu: {
+          name: 'Tab 1',
+          active: true,
+          content: 'test tab 1'
+        }
+      })
+      .state('tabs.2', {
+        menu: {
+          name: 'Tab 2',
+          content: 'test tab 2'
+        }
+      })
+      .state('tabs.3', {
+        menu: {
+          name: 'Tab 3',
+          disabled: true
         }
       })
   ;
