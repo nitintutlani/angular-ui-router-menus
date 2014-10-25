@@ -1,6 +1,6 @@
 /**
  * angular-ui-router state derived menu, nav, navbar, tab and other navigation tools
- * @version v0.1.2-dev-2014-10-12
+ * @version v0.1.2-dev-2014-10-25
  * @link https://github.com/nitintutlani/angular-ui-router-menus
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -107,7 +107,7 @@ function matchGlobs(globs, str) {
 var uiRouterMenusModule = angular.module('ui.router.menus', ['ng', 'ui.router']);
 
 // Source: src/directives/menus.js
-uiRouterMenusModule.directive('menus', [ 'menus', function(menus) {
+uiRouterMenusModule.directive('menus', [ '$menus', function($menus) {
     return {
       link: {
         restrict: 'EA',
@@ -122,7 +122,7 @@ uiRouterMenusModule.directive('menus', [ 'menus', function(menus) {
           if(isDefined(attrs.type)) { menuOptions.type =  attrs.type; }
           if(isDefined(attrs.include)) { menuOptions.include =  attrs.include; }
           if(isDefined(attrs.tag)) { menuOptions.tag =  attrs.tag; }
-          scope[attrs.menus] = menus.get(menuOptions);
+          scope[attrs.menus] = $menus.get(menuOptions);
         }
       }
     };
@@ -130,7 +130,7 @@ uiRouterMenusModule.directive('menus', [ 'menus', function(menus) {
 ]);
 
 // Source: src/services/menus.js
-uiRouterMenusModule.service('menus', ['$state', function($state) {
+uiRouterMenusModule.service('$menus', ['$state', function($state) {
 
   //Converts a state to menu based on menu definition object.
   function compile(state) {
