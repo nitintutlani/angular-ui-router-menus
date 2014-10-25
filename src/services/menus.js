@@ -1,4 +1,4 @@
-uiRouterMenusModule.service('menus', ['$state', function($state) {
+uiRouterMenusModule.service('$menus', ['$state', function($state) {
 
   //Converts a state to menu based on menu definition object.
   function compile(state) {
