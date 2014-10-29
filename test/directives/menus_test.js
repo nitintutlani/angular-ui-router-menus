@@ -104,4 +104,39 @@ describe('Directive: `menus`', function() {
 
   });
 
+  describe('Tree menu states', function() {
+
+    beforeEach(function() {
+      module('ui.router', function(_$stateProvider_) {
+        $stateProvider = _$stateProvider_;
+        loadStates(treeMenuStates, $stateProvider);
+      });
+      module('ui.router.menus');
+      inject(function (_$rootScope_) {
+        scope = _$rootScope_.$new();
+      });
+    });
+
+    it('should load nodes to the elements scope',
+        inject(function($compile, $menus) {
+      $compile(treeMenuElement)(scope);
+      expect(scope.nodes).toBeDefined();
+      expect(scope.nodes).toEqual($menus.get({include: 'node*', type: 'tree'}));
+    }));
+
+    it('should compile the treeMenuElement such that ui-router directives work',
+        inject(function($compile, $menus) {
+          var items,
+              listItems,
+              compiled = $compile(treeMenuElement)(scope);
+          scope.$apply();
+          items = compiled.children();
+          var nodes = $menus.get({include: 'node*', type: 'tree'});
+          expect(items.length).toBe(nodes.length);
+          listItems = items.find('ul').children();
+          expect(listItems.length).toBe(4);
+        }));
+
+  });
+
 });

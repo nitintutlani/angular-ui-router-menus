@@ -93,4 +93,72 @@ describe('Service: `menus`', function() {
 
   });
 
+  describe('tree menu states', function() {
+
+    beforeEach(function() {
+      module('ui.router', function(_$stateProvider_) {
+        $stateProvider = _$stateProvider_;
+        loadStates(treeMenuStates, $stateProvider);
+      });
+      module('ui.router.menus');
+      inject(function (_$menus_, _$state_) {
+        menus = _$menus_;
+        $state = _$state_;
+      });
+    });
+
+    it('should return 7 states', function() {
+      var states = $state.get();
+      expect(states.length).toBe(7);
+    });
+
+    it('should return 6 menus', function() {
+      expect(menus.get().length).toBe(6);
+    });
+
+    it('find menu based on state', function() {
+      menus.get(); //necessary to load menus from states
+      expect(menus.findMenu('node1').state.name).toBe('node1');
+      expect(menus.findMenu('node2.child1').state.name).toBe('node2.child1');
+      expect(menus.findMenu('nodeCustom').state.name).toBe('nodeCustom');
+      expect(menus.findMenu('unknown')).toBe(null);
+    });
+
+    it('check parent for every state', function() {
+      menus.get(); //necessary to load menus from states
+      expect(menus.parent('node1')).toBe(null);
+      expect(menus.parent('node1.child1').state.name).toBe('node1');
+      expect(menus.parent('node1.child2').state.name).toBe('node1');
+      expect(menus.parent('node2')).toBe(null);
+      expect(menus.parent('node2.child1').state.name).toBe('node2');
+      expect(menus.parent('nodeCustom').state.name).toBe('node2');
+    });
+
+    it('find by parent', function() {
+      menus.get(); //necessary to load menus from states
+      var node1Children = menus.findByParent('node1');
+      expect(node1Children.length).toBe(2);
+      expect(node1Children[0].state.name).toBe('node1.child1');
+      expect(node1Children[1].state.name).toBe('node1.child2');
+      var node2Children = menus.findByParent('node2');
+      expect(node2Children.length).toBe(2);
+      expect(node2Children[0].state.name).toBe('node2.child1');
+      expect(node2Children[1].state.name).toBe('nodeCustom');
+    });
+
+    it('get menus as tree', function() {
+      var nodes = menus.get({type: 'tree', include: 'node*'});
+      expect(nodes.length).toBe(2);
+      expect(nodes[0].state.name).toBe('node1');
+      expect(nodes[1].state.name).toBe('node2');
+      expect(nodes[0].children.length).toBe(2);
+      expect(nodes[0].children[0].state.name).toBe('node1.child1');
+      expect(nodes[0].children[1].state.name).toBe('node1.child2');
+      expect(nodes[1].children.length).toBe(2);
+      expect(nodes[1].children[0].state.name).toBe('node2.child1');
+      expect(nodes[1].children[1].state.name).toBe('nodeCustom');
+    });
+
+  });
+
 });

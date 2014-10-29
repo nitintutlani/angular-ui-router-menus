@@ -1,5 +1,7 @@
 uiRouterMenusModule.service('$menus', ['$state', function($state) {
 
+  var menus;
+
   //Converts a state to menu based on menu definition object.
   function compile(state) {
     if(!state.menu) { return null; }
@@ -17,6 +19,52 @@ uiRouterMenusModule.service('$menus', ['$state', function($state) {
     return menu;
   }
 
+  this.findMenu = function(stateName) {
+    for(var i=0; i<menus.length; i++) {
+      if(stateName === menus[i].state.name) {
+        return menus[i];
+      }
+    }
+    return null;
+  };
+
+  this.parent = function(stateName) {
+    var menu = this.findMenu(stateName);
+    if(menu) {
+      if (isDefined(menu.state.parent) && menu.state.parent) {
+        return this.findMenu(menu.state.parent);
+      }
+      var compositeName = /^(.+)\.[^.]+$/.exec(menu.state.name);
+      return compositeName ? this.findMenu(compositeName[1]) : null;
+    }
+    return null;
+  };
+
+  this.findByParent = function(stateName) {
+    var self = this;
+    var result = menus.filter(function(menu) {
+      var parent = self.parent(menu.state.name);
+      return parent && stateName === parent.state.name;
+    });
+    return result;
+  };
+
+  this.getTree = function(menu) {
+    var self = this,
+        nodes;
+    if(!menu) {
+      nodes = menus.filter(function(menu) {
+        return !self.parent(menu.state.name);
+      });
+    } else {
+      nodes = this.findByParent(menu.state.name);
+    }
+    forEach(nodes, function(node) {
+      node.children = self.getTree(node);
+    });
+    return nodes;
+  };
+
   /**
    * Get menus collection generated from states
    *
@@ -26,9 +74,10 @@ uiRouterMenusModule.service('$menus', ['$state', function($state) {
   this.get = function(options) {
     options = options || {}; //optional options
 
-    var menus = []; //resulting array of menus
+    menus = []; //resulting array of menus
 
-    var states = $state.get(); //fetch all states in ui-router (using $state service)
+    // Start afresh
+    var states = $state.get();
 
     //Filter states based on includes
     var includes = options.include || null;
@@ -42,6 +91,7 @@ uiRouterMenusModule.service('$menus', ['$state', function($state) {
     var tags = options.tag || null;
     if(tags) { tags = globsToPatterns(tags); }
 
+    //The following is a double filter loop that filters states based on menus and
     forEach(states, function(state) {
       var menu = compile(state);
       if(menu) { //push only if a valid menu is returned
@@ -57,11 +107,10 @@ uiRouterMenusModule.service('$menus', ['$state', function($state) {
       }
     });
 
-    var type = options.type || 'group'; //@todo Default type needs to be group
+    var type = options.type || 'list';
 
-    if(type === 'group') {
-      //order by state name
-      //nested group by state name
+    if(type === 'tree') {
+      return this.getTree();
     }
 
     return menus;
