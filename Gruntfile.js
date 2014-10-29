@@ -107,8 +107,8 @@ module.exports = function (grunt) {
       }
     },
     watch: {
-      files: ['src/*.js', 'test/**/*.js'],
-      tasks: ['build']
+      files: ['src/**/*.js', 'test/**/*.js'],
+      tasks: ['karma:test']
     }
   });
 
