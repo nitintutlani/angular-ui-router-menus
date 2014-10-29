@@ -152,11 +152,17 @@ describe('Service: `menus`', function() {
       expect(nodes[0].state.name).toBe('node1');
       expect(nodes[1].state.name).toBe('node2');
       expect(nodes[0].children.length).toBe(2);
+      expect(nodes[0].hasChild).toBe(true);
       expect(nodes[0].children[0].state.name).toBe('node1.child1');
+      expect(nodes[0].children[0].hasChild).toBe(false);
       expect(nodes[0].children[1].state.name).toBe('node1.child2');
+      expect(nodes[0].children[1].hasChild).toBe(false);
       expect(nodes[1].children.length).toBe(2);
+      expect(nodes[1].hasChild).toBe(true);
       expect(nodes[1].children[0].state.name).toBe('node2.child1');
+      expect(nodes[1].children[0].hasChild).toBe(false);
       expect(nodes[1].children[1].state.name).toBe('nodeCustom');
+      expect(nodes[1].children[1].hasChild).toBe(false);
     });
 
   });

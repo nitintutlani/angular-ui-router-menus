@@ -96,9 +96,9 @@ var treeMenuStates = {
 };
 
 var treeMenuElement = "<ul menus=\"nodes\" type=\"tree\" include=\"node*\">" +
-    "<li ng-repeat=\"node in nodes\">" +
+    "<li ng-repeat=\"node in nodes\" ng-class=\"{'has-child': node.hasChild}\">" +
     "<h3>{{node.name}}</h3>" +
-      "<ul><li ng-repeat=\"child in node.children\">" +
+      "<ul ng-if=\"node.hasChild\"><li ng-repeat=\"child in node.children\">" +
       "<a ui-sref=\"{{child.state.name}}\">{{child.name}}</a>" +
       "</li></ul>" +
     "</li></ul>";

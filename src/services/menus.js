@@ -44,7 +44,7 @@ uiRouterMenusModule.service('$menus', ['$state', function($state) {
     var self = this;
     var result = menus.filter(function(menu) {
       var parent = self.parent(menu.state.name);
-      return parent && stateName === parent.state.name;
+      return !!parent && stateName === parent.state.name;
     });
     return result;
   };
@@ -61,6 +61,7 @@ uiRouterMenusModule.service('$menus', ['$state', function($state) {
     }
     forEach(nodes, function(node) {
       node.children = self.getTree(node);
+      node.hasChild = isDefined(node.children) && isArray(node.children) ? !!node.children.length : false;
     });
     return nodes;
   };
