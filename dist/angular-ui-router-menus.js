@@ -1,6 +1,6 @@
 /**
  * angular-ui-router state derived menu, nav, navbar, tab and other navigation tools
- * @version v0.1.4-dev-2014-10-29
+ * @version v0.2.1-dev-2014-10-30
  * @link https://github.com/nitintutlani/angular-ui-router-menus
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -176,7 +176,7 @@ uiRouterMenusModule.service('$menus', ['$state', function($state) {
     var self = this;
     var result = menus.filter(function(menu) {
       var parent = self.parent(menu.state.name);
-      return parent && stateName === parent.state.name;
+      return !!parent && stateName === parent.state.name;
     });
     return result;
   };
@@ -193,6 +193,7 @@ uiRouterMenusModule.service('$menus', ['$state', function($state) {
     }
     forEach(nodes, function(node) {
       node.children = self.getTree(node);
+      node.hasChild = isDefined(node.children) && isArray(node.children) ? !!node.children.length : false;
     });
     return nodes;
   };
