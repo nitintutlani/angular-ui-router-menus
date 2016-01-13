@@ -1,6 +1,6 @@
 /**
  * angular-ui-router state derived menu, nav, navbar, tab and other navigation tools
- * @version v0.2.1-dev-2014-10-30
+ * @version v0.2.2-dev-2016-01-14
  * @link https://github.com/nitintutlani/angular-ui-router-menus
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
