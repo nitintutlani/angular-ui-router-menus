@@ -9,15 +9,16 @@ Sorry, I should have documented this earlier. Nevermind better late than never.
 
 ### Installation
 
-Bower
+ Bower
     `bower install --save angular-ui-router-menus`
-Npm (webpack/systemjs, etc)
+
+ Npm (webpack/systemjs, etc)
     `npm install --save angular-ui-router-menus`
 
 Include in angular app/html, make sure you have angular and ui-router up and working:
 ```
 <head>
-    <script src="js/angular-ui-router.min.js"></script>
+    <script src="js/angular-ui-router-menus.js"></script>
     <script>
         var myApp = angular.module('myApp', ['ui.router', 'ui.router.menus']);
     </script>
@@ -48,6 +49,9 @@ In ui-router states, simply add a property called `menu` (keyword) with value st
         .state('investors', {
             menu: 'Investors',
             tag: 'topmenu'
+        })
+        .state('test', {
+            menu: 'test'
         });
 ```
 
@@ -108,3 +112,5 @@ More fun? Use glob patterns and also add multiple include/tags delimited with sp
 ```
 
 Deep dive? Inject $menus service into controller and call $menu.get|getTree.
+
+Still not clear? Checkout `examples` folder for functional angular ui-bootstrap application using navbar and tabsets.
